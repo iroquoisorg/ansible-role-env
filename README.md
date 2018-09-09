@@ -1,9 +1,5 @@
-# Ansible role to configure host environment
+# ansible-role-env
 
-* hostname
-* `/etc/hosts` entries
-* environment variables
-* crontabs
-* timezone
+[![Build Status](https://travis-ci.com/iroquoisorg/ansible-role-env.svg?branch=master)](https://travis-ci.com/iroquoisorg/ansible-role-env)
 
 This role was prepared and tested for Ubuntu 16.04.
