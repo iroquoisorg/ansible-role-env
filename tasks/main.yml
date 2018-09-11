@@ -18,7 +18,7 @@
 
 - name: Set system timezone
   copy:
-    content: "{{ env_timezone }}\n"
+    content: "{{ env_timezone }}"
     dest: "/etc/timezone"
   notify:
     - update timezone
