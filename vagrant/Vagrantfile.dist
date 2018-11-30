@@ -15,7 +15,6 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder "../", "/vagrant/ansible-role-env", id: "ansible", type: "rsync", rsync__exclude: ".git/"
 
     config.vm.provision "ansible_local" do |ansible|
-        ansible.galaxy_role_file = "ansible-role-env/molecule/default/requirements.yml"
         ansible.version = "2.5.4"
         ansible.install_mode = "pip"
         ansible.playbook = "ansible-role-env/molecule/default/playbook.yml"
