@@ -22,3 +22,7 @@ env_hosts: [] # {ip: "127.0.0.1", host: "localhost"}
 env_cron_host: false
 
 ```
+
+# Development
+
+Please check [development guide](DEVELOPMENT.md) for details about developing and testing this role.
