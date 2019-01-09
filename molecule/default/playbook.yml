@@ -2,5 +2,8 @@
 - name: Converge
   hosts: all
   become: true
+  vars:
+    env_vars:
+      VARIABLE: 'variable value'
   roles:
     - role: ansible-role-env
