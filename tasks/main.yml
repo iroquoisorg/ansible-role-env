@@ -10,6 +10,7 @@
     line: "{{ item.key }}='{{ item.value }}'"
     regexp: "^{{ item.key }} ?="
   with_dict: "{{ env_vars }}"
+  no_log: True
 
 - name: Set system wide locale env variable
   lineinfile:
