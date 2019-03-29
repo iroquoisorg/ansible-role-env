@@ -2,7 +2,7 @@
 - name: Set system hostname
   hostname:
     name: "{{ env_hostname }}"
-  when: env_hostname != ""
+  when: env_hostname|length
 
 - name: Set system wide env variables
   lineinfile:
@@ -36,13 +36,13 @@
     weekday: "{{ item.weekday|default('*') }}"
     state: "{{ item.state|default('present') }}"
   with_items: "{{ env_cron_jobs }}"
-  when: env_cron_host|bool == true
+  when: env_cron_host is defined
 
 - name: Add hostname to /etc/hosts
   lineinfile:
     dest: /etc/hosts
     line: "127.0.0.1 {{ env_hostname }}"
-  when: env_hostname != ""
+  when: env_hostname|length
 
 - name: Update /etc/hosts
   lineinfile:
