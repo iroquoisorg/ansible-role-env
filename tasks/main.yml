@@ -50,3 +50,42 @@
     regexp: " {{ item.host }}$"
     line: "{{ item.ip }} {{ item.host }}"
   with_items: "{{ env_hosts }}"
+
+- name: Configure user pam environment variables
+  pamd:
+    name: sudo
+    type: session
+    control: required
+    module_path: pam_env.so
+    module_arguments: "readenv=1 user_readenv=1"
+    state: updated
+  when: env_pam_users | length
+
+- name: Create home directory for pam users
+  become: true
+  user:
+    name: "{{ item.name }}"
+    create_home: true
+  register: user_pam_registered
+  loop: "{{ env_pam_users }}"
+  when: env_pam_users | length
+
+- name: Set proper directory permission
+  become: true
+  file:
+    state: directory
+    path: "{{ item.home }}"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  loop: "{{ user_pam_registered.results }}"
+  when: env_pam_users | length
+
+- name: Copy pam_environment file to user home directory
+  become: true
+  become_user: "{{ item.name }}"
+  template:
+    src: "{{ item.template }}"
+    dest: "~/.pam_environment"
+    mode: 0640
+  loop: "{{ env_pam_users }}"
+  when: env_pam_users | length

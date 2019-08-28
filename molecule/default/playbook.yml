@@ -3,6 +3,8 @@
   hosts: all
   become: true
   vars:
+    env_pam_users:
+      - { name: "vagrant", "template": "pam-environment.vagrant.j2" }
     env_vars:
       VARIABLE: 'variable value'
   roles:
